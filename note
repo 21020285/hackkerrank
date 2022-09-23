@@ -1,0 +1,122 @@
+https://bit.ly/3LyqNA5
+ 
+ 
+Bài 4:
+quickSort(List<Integer> arr) {
+    // Write your code here
+        List<Integer> left=new ArrayList<>();
+        List<Integer> equal=new ArrayList<>();
+        List<Integer> right=new ArrayList<>();
+        List<Integer> res=new ArrayList<>();
+        int p=arr.get(0);
+        int size=arr.size();
+        for(int i=0;i<size;++i){
+            if(arr.get(i)<p){
+                left.add(arr.get(i));
+            }
+            if(arr.get(i)==p){
+                equal.add(arr.get(i));
+            }
+            if(arr.get(i)>p){
+                right.add(arr.get(i));
+            }
+        }
+        for(int i=0;i<left.size();++i){
+            res.add(left.get(i));
+        }
+        for(int i=0;i<equal.size();++i){
+            res.add(equal.get(i));
+        }
+        for(int i=0;i<right.size();++i){
+            res.add(right.get(i));
+        }
+        return res;
+        
+    }
+ 
+Cách 2:
+ 
+public static List<Integer> quickSort(List<Integer> arr) {
+    // Write your code here
+        int n = arr.size(); 
+        int pivot = arr.get(0); 
+        int i = 1, j = n - 1;
+        while (i <= j) {
+            while (arr.get(i) < pivot) i++; 
+            while (arr.get(j) > pivot) j--;  
+            System.out.println(i + " " + j);
+            if (i <= j) {
+                int tmp = arr.get(i); 
+                arr.set(i, arr.get(j)); 
+                arr.set(j, tmp); 
+                i++; j--; 
+            }
+        }
+        int tmp = arr.get(0); 
+        arr.set(0, arr.get(j)); 
+        arr.set(j, tmp);      
+        return arr; 
+    }
+ 
+Bài 5:
+public static void quicksort (int[] arr, int L, int R) {
+      if ( L < R) {
+      int key = partition(arr, L, R);
+      quicksort(arr, L, key-1);
+      quicksort(arr, key+1, R);
+      }
+    }
+    
+    static int partition(int[] arr, int L, int R) {
+      int pivot = arr[R];
+      int j = L;
+      for(int i=L; i < R; i++) {
+        if (arr[i] < pivot) {
+          int tmp = arr[i];
+          arr[i] = arr[j];
+          arr[j] = tmp;
+          j++;
+        }
+      }
+      
+      int tmp = arr[R];
+      arr[R] = arr[j];
+      arr[j] = tmp;
+      
+      for(int c:arr) {
+        System.out.print( c + " ");
+      }
+      System.out.println();
+      return j;
+    }
+ 
+class Result {
+ 
+  /*
+  * Complete the 'findMedian' function below.
+  *
+  * The function is expected to return an INTEGER.
+  * The function accepts INTEGER_ARRAY arr as parameter.
+  */
+ 
+  private static int partition(List<Integer> arr, int l, int r) {
+      int pivot = arr.get(r), j = l;
+      for (int i = l; i < r; i++)
+          if (arr.get(i) < pivot) Collections.swap(arr, i, j++);
+      Collections.swap(arr, j, r);
+      return j;
+  }
+    
+  private static int ans(List<Integer> arr, int l, int r) {
+      int k = partition(arr, l, r);
+      if (k == arr.size()/2) return arr.get(k);
+      if (k < arr.size()/2) return ans(arr, k + 1, r);
+      return ans(arr, l, k - 1);
+  }
+ 
+  public static int findMedian(List<Integer> arr) {
+  // Write your code here
+      return ans(arr, 0, arr.size() - 1);
+  }
+ 
+}
